@@ -136,7 +136,7 @@ function Cadastro({ onCadastroCompleto }) {
       alignItems: 'center',
       height: '100vh',
       backgroundColor: 'rgba(128, 128, 128, 0.5)', // Cor cinza com 50% de opacidade
-      backgroundImage: 'url("https://getwallpapers.com/wallpaper/full/f/3/9/1109114-free-download-purple-wallpaper-for-computer-2880x1800-for-pc.jpg")', // Substitua o caminho pela URL da sua imagem
+      backgroundImage: 'url("https://a-static.mlcdn.com.br/450x450/papel-adesivo-contact-verde-pastel-fosco-opaco-45-cm-x-5-mts-plastcover/filipackembalagens/985/5c467c6a86f0db83c75edf2faeec6f61.jpeg")', // Substitua o caminho pela URL da sua imagem
       backgroundSize: 'cover', // Para cobrir todo o elemento com a imagem
       backgroundPosition: 'center' // Para centralizar a imagem dentro do elemento
     }}>
@@ -146,7 +146,7 @@ function Cadastro({ onCadastroCompleto }) {
         border: '1px solid #ccc',
         borderRadius: '10px',
         boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
-        backgroundColor: 'rgb(80, 20, 73, 0.5)'
+        backgroundColor: 'rgba(58, 156, 116, 0.7)'
       }}
       >
         
@@ -322,7 +322,7 @@ function Cadastro({ onCadastroCompleto }) {
                 padding: '10px',
                 border: 'none',
                 borderRadius: '5px',
-                backgroundColor: 'rgb(81 23 74)',
+                backgroundColor: '#20835d',
                 color: '#fff',
                 fontSize: '16px',
                 cursor: 'pointer',

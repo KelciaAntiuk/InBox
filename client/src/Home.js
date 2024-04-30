@@ -1,19 +1,28 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Card from './components/Card'
+import CardEmail from './components/CardEmail'
 
 
 function Home() {
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [card, setCard] = useState(true);
+  const [email, setEmail] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
- 
+  const userName = location.state && location.state.userName;
+
+
 
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  const sendEmail = () => {
+    setEmail(true);
+  }
 
 
   const redirect = () => {
@@ -22,15 +31,12 @@ function Home() {
     }, 3000);
   };
 
-
-
-
   return (
     <div className="Home"
-    style={{
-      backgroundColor:'rgba(111, 205, 163, 0.4)',
-      minHeight: '100vh'
-    }}>
+      style={{
+        backgroundColor: 'rgba(111, 205, 163, 0.4)',
+        minHeight: '100vh'
+      }}>
       <div
         className={`sidebar ${menuOpen ? "open" : ""}`}
         style={{
@@ -58,7 +64,7 @@ function Home() {
               transition: 'border-color 0.3s ease'
             }}
           >
-          
+
           </li>
           <li
             style={{
@@ -66,7 +72,7 @@ function Home() {
               transition: 'border-color 0.3s ease'
             }}
           >
-           
+
           </li>
         </ul>
       </div>
@@ -123,7 +129,7 @@ function Home() {
           >
           </div>
 
-          
+
           <div
             className="perfil"
             style={{
@@ -160,7 +166,32 @@ function Home() {
         </div>
 
       </div>
-   
+      {card &&
+        <Card userName={userName} />
+      }
+      {email &&
+      <CardEmail />
+      }
+
+      <button
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          backgroundColor: '#3a9c74',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '14px',
+          height: '50px',
+          fontSize: '15px',
+          cursor: 'pointer',
+          zIndex: 999 
+        }}
+       onClick={() => sendEmail()}
+      >
+        Send Email
+      </button>
+
 
     </div >
   );
