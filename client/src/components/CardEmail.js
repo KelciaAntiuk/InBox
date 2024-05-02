@@ -5,7 +5,7 @@ function EmailCard({ onSend, userName, onClose }) {
   const [body, setBody] = useState('');
   const [selectedReceiver, setSelectedReceiver] = useState(0);
   const [receivers, setReceivers] = useState([]);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
 
   useEffect(() => {
     fetchUsers();
@@ -48,9 +48,9 @@ function EmailCard({ onSend, userName, onClose }) {
         // Limpar os campos do formulário
         setAssunto('');
         setBody('');
-        setShowSuccessMessage(true);
+        
         setTimeout(() => {
-          setShowSuccessMessage(false);
+          
           onClose();
         }, 3000); // Fechar o card após 3 segundos
       } else {
@@ -180,21 +180,7 @@ function EmailCard({ onSend, userName, onClose }) {
       >
         Enviar
       </button>
-      {showSuccessMessage && (
-        <div style={{
-          position: 'absolute',
-          top: 'calc(100% + 10px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          backgroundColor: '#3a9c74',
-          color: '#fff',
-          padding: '10px',
-          borderRadius: '4px',
-        }}
-        >
-          E-mail enviado com sucesso!
-        </div>
-      )}
+    
 
     </div>
   );

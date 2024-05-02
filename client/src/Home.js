@@ -4,6 +4,7 @@ import Card from './components/Card';
 import CardEmail from './components/CardEmail';
 
 function Home() {
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [card, setCard] = useState(true);
   const [email, setEmail] = useState(false);
@@ -170,12 +171,27 @@ function Home() {
       onClose={() => setEmail(false)}
       onSend={() => {
         setEmail(false);
-        // Exibir mensagem de sucesso por 3 segundos e depois fechar o card
+        setShowSuccessMessage(true)
       }}
       userName={userName}
     />
   </div>
 )}
+  {showSuccessMessage && (
+        <div style={{
+          position: 'absolute',
+          top: 'calc(100% + 10px)',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          backgroundColor: '#3a9c74',
+          color: '#fff',
+          padding: '10px',
+          borderRadius: '4px',
+        }}
+        >
+          E-mail enviado com sucesso!
+        </div>
+      )}
 
       {/* Botão para enviar email */}
       <button
