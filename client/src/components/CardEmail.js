@@ -9,6 +9,8 @@ function EmailCard({ onSend, userName, onClose }) {
 
   useEffect(() => {
     fetchUsers();
+    console.log('usernameemail', userName)
+    
   }, []);
 
   const fetchUsers = async () => {
@@ -18,6 +20,7 @@ function EmailCard({ onSend, userName, onClose }) {
       setReceivers(userData);
     } catch (error) {
       console.error('Error fetching users:', error);
+      
     }
   };
 
@@ -36,6 +39,7 @@ function EmailCard({ onSend, userName, onClose }) {
         receiver: selectedReceiver,
         user: userName
       };
+      console.log('email', email)
 
       const response = await fetch('http://localhost:3333/email', {
         method: 'POST',

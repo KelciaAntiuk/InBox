@@ -74,8 +74,11 @@ function Home() {
 
       <div
         style={{
-          marginLeft: menuOpen ? '250px' : '0',
-          transition: 'margin-left 0.3s ease-in-out',
+          position: 'fixed', // Fixando a barra de navegação no topo
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 999, // Definindo um z-index alto para garantir que a barra de navegação esteja por cima de outros elementos
         }}
       >
         <div
@@ -155,72 +158,71 @@ function Home() {
         </div>
       </div>
 
-      {card && 
-      <Card 
-      userName={userName} 
-      />
-      }
-      {email && (
-        <div
+      <div style={{ paddingTop: '70px' }}>
+        {/* Adicionando um espaço de preenchimento para evitar que os emails fiquem atrás da barra de navegação */}
+        {card && <Card userName={userName} />}
+        {email && (
+          <div
+            style={{
+              position: 'fixed',
+              top: '66%',
+              left: '50%',
+              right: '-30%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 9999,
+            }}
+          >
+            <CardEmail
+              onClose={() => setEmail(false)}
+              onSend={() => {
+                setEmail(false);
+                setShowSuccessMessage(true);
+                setTimeout(() => {
+                  setShowSuccessMessage(false);
+                }, 4000);
+              }}
+              userName={userName}
+            />
+          </div>
+        )}
+
+        {showSuccessMessage && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '90px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              backgroundColor: '#3a9c74',
+              color: '#fff',
+              padding: '10px',
+              borderRadius: '4px',
+              zIndex: '9999',
+            }}
+          >
+            E-mail enviado com sucesso!
+          </div>
+        )}
+
+        <button
           style={{
             position: 'fixed',
-            top: '66%',
-            left: '50%',
-            right: '-30%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 9999,
+            bottom: '20px',
+            right: '20px',
+            backgroundColor: '#3a9c74',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '14px',
+            height: '50px',
+            fontSize: '15px',
+            cursor: 'pointer',
+            zIndex: 999,
           }}
+          onClick={() => sendEmail()}
         >
-          <CardEmail
-            onClose={() => setEmail(false)}
-            onSend={() => {
-              setEmail(false);
-              setShowSuccessMessage(true)
-              setTimeout(() => {
-                setShowSuccessMessage(false)
-
-              }, 4000)
-            }}
-            userName={userName}
-          />
-        </div>
-      )}
-
-      {showSuccessMessage && (
-        <div style={{
-          position: 'absolute',
-          top: '90px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          backgroundColor: '#3a9c74',
-          color: '#fff',
-          padding: '10px',
-          borderRadius: '4px',
-          zIndex: '9999'
-        }}
-        >
-          E-mail enviado com sucesso!
-        </div>
-      )}
-
-      <button
-        style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          backgroundColor: '#3a9c74',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '14px',
-          height: '50px',
-          fontSize: '15px',
-          cursor: 'pointer',
-          zIndex: 999,
-        }}
-        onClick={() => sendEmail()}
-      >
-        Send Email
-      </button>
+          Send Email
+        </button>
+      </div>
     </div>
   );
 }

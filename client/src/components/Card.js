@@ -33,8 +33,14 @@ function TaskCard({ userName }) {
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   };
 
+  
+
   return (
-    <div style={{ marginTop: '10px' }}>
+    <div
+      style={{
+        marginTop: '10px'
+      }}
+    >
       {content
         .filter(content => content.receiver === userName)
         .map(email => (
@@ -52,24 +58,41 @@ function TaskCard({ userName }) {
               border: '1px solid #e0e0e0',
               display: 'flex',
               alignItems: 'center',
-              transition: 'transform 0.2s', // Adiciona uma transição suave à escala
+              transition: 'transform 0.2s',
+              minWidth: '250px',
+
             }}
             onMouseOver={e => {
               e.currentTarget.style.transform = 'scale(1.01)';
-              e.currentTarget.style.border = '1px solid grey'; 
+              e.currentTarget.style.border = '1px solid grey';
               e.currentTarget.style.zIndex = '9999'
             }}
             onMouseOut={e => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.border = '1px solid #e0e0e0'; 
+              e.currentTarget.style.border = '1px solid #e0e0e0';
             }}
           >
-            <div style={{ fontSize: '19px' }}>
+            <div style={{
+              fontSize: '19px',
+              minWidth: '150px'
+            }}>
               {user
                 .filter(user => user.id === email.user)
                 .map(user => (
-                  <div key={user.id}>
-                    <a>{user.title}</a>
+                  <div
+                    style={{
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      maxWidth: '130px'
+                    }}
+                    key={user.id}
+                  >
+                    <a
+
+                    >
+                      {user.title}
+                    </a>
                   </div>
                 ))
               }
@@ -78,7 +101,8 @@ function TaskCard({ userName }) {
               style={{
                 fontSize: '17px',
                 lineHeight: '1.5',
-                marginLeft: '20px'
+                marginLeft: '20px',
+
               }}
             >
               {email.assunto}:
@@ -87,7 +111,7 @@ function TaskCard({ userName }) {
                   fontSize: '15px'
                 }}
               >
-                {shortenContent(email.body, 90)}
+                {shortenContent(email.body, 50)}
               </a>
             </div>
           </div>
