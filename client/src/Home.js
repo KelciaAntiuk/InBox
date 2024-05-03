@@ -155,45 +155,54 @@ function Home() {
         </div>
       </div>
 
-      {card && <Card userName={userName} />}
+      {card && 
+      <Card 
+      userName={userName} 
+      />
+      }
       {email && (
-  <div
-    style={{
-      position: 'fixed',
-      top: '66%',
-      left: '50%',
-      right:'-30%',
-      transform: 'translate(-50%, -50%)',
-      zIndex: 9999,
-    }}
-  >
-    <CardEmail
-      onClose={() => setEmail(false)}
-      onSend={() => {
-        setEmail(false);
-        setShowSuccessMessage(true)
-      }}
-      userName={userName}
-    />
-  </div>
-)}
-  {showSuccessMessage && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '66%',
+            left: '50%',
+            right: '-30%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 9999,
+          }}
+        >
+          <CardEmail
+            onClose={() => setEmail(false)}
+            onSend={() => {
+              setEmail(false);
+              setShowSuccessMessage(true)
+              setTimeout(() => {
+                setShowSuccessMessage(false)
+
+              }, 4000)
+            }}
+            userName={userName}
+          />
+        </div>
+      )}
+
+      {showSuccessMessage && (
         <div style={{
           position: 'absolute',
-          top: 'calc(100% + 10px)',
+          top: '90px',
           left: '50%',
           transform: 'translateX(-50%)',
           backgroundColor: '#3a9c74',
           color: '#fff',
           padding: '10px',
           borderRadius: '4px',
+          zIndex: '9999'
         }}
         >
           E-mail enviado com sucesso!
         </div>
       )}
 
-      {/* Botão para enviar email */}
       <button
         style={{
           position: 'fixed',
