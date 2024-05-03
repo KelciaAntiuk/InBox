@@ -12,12 +12,16 @@ function Cadastro({ onCadastroCompleto }) {
   const [userName, setUserName] =('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+
+    console.log('usernameemail', userName)
+    
+  }, []);
+
   const handleCadastroCompleto = (userName) => {
     setShowSuccessMessage(true);
     onCadastroCompleto(userName); // Passa o userName para onCadastroCompleto
   };
-
- 
 
   const redirectToLogin = () => {
     setIsLoginPage(true);
@@ -55,7 +59,7 @@ function Cadastro({ onCadastroCompleto }) {
 
       setShowSuccessMessage(true);
       // Redirecionar para outra página após o cadastro
-      redirectWithDelay();
+      redirectToLogin();
       handleCadastroCompleto();
     } catch (error) {
       console.error('Error adding people:', error);
@@ -99,7 +103,6 @@ function Cadastro({ onCadastroCompleto }) {
       console.log('username', userName)
     }, 3000);
   };
-
 
 
   const validationsRegister = yup.object().shape({
