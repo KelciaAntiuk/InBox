@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import VerMais from './VerMais';
 
 function TaskCard({ userName }) {
   const [content, setContent] = useState([]);
   const [user, setUser] = useState([]);
+  const [selectedEmail, setSelectedEmail] = useState(null); // Adicionando estado para o email selecionado
 
   useEffect(() => {
     fetchEmails();
@@ -25,7 +27,7 @@ function TaskCard({ userName }) {
       const emailData = await response.json();
       setContent(emailData);
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error('Error fetching emails:', error);
     }
   };
 
@@ -33,16 +35,14 @@ function TaskCard({ userName }) {
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   };
 
-  
+  const handleEmailClick = (email) => {
+    setSelectedEmail(email);
+  };
 
   return (
-    <div
-      style={{
-        marginTop: '10px'
-      }}
-    >
+    <div style={{ marginTop: '10px' }}>
       {content
-        .filter(content => content.receiver === userName)
+        .filter(email => email.receiver === userName)
         .map(email => (
           <div
             key={email.id}
@@ -60,8 +60,8 @@ function TaskCard({ userName }) {
               alignItems: 'center',
               transition: 'transform 0.2s',
               minWidth: '250px',
-
             }}
+            onClick={() => handleEmailClick(email)} // Passando o email específico para a função de clique
             onMouseOver={e => {
               e.currentTarget.style.transform = 'scale(1.01)';
               e.currentTarget.style.border = '1px solid grey';
@@ -72,10 +72,7 @@ function TaskCard({ userName }) {
               e.currentTarget.style.border = '1px solid #e0e0e0';
             }}
           >
-            <div style={{
-              fontSize: '19px',
-              minWidth: '150px'
-            }}>
+            <div style={{ fontSize: '19px', minWidth: '150px' }}>
               {user
                 .filter(user => user.id === email.user)
                 .map(user => (
@@ -88,34 +85,25 @@ function TaskCard({ userName }) {
                     }}
                     key={user.id}
                   >
-                    <a
-
-                    >
-                      {user.title}
-                    </a>
+                    <a>{user.title}</a>
                   </div>
-                ))
-              }
+                ))}
             </div>
             <div
               style={{
                 fontSize: '17px',
                 lineHeight: '1.5',
                 marginLeft: '20px',
-
               }}
             >
               {email.assunto}:
-              <a
-                style={{
-                  fontSize: '15px'
-                }}
-              >
+              <a style={{ fontSize: '15px' }}>
                 {shortenContent(email.body, 50)}
               </a>
             </div>
           </div>
         ))}
+      {selectedEmail && <VerMais email={selectedEmail} />} 
     </div>
   );
 }

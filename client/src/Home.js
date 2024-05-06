@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Card from './components/Card';
 import CardEmail from './components/CardEmail';
+import VerMais from './components/VerMais';
 
 function Home() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [card, setCard] = useState(true);
   const [email, setEmail] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
   const userName = location.state && location.state.userName;
@@ -161,6 +163,7 @@ function Home() {
       <div style={{ paddingTop: '70px' }}>
         {/* Adicionando um espaço de preenchimento para evitar que os emails fiquem atrás da barra de navegação */}
         {card && <Card userName={userName} />}
+       
         {email && (
           <div
             style={{
