@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Card from './components/Card';
 import CardEmail from './components/CardEmail';
+import Enviados from './components/Enviados';
 import VerMais from './components/VerMais';
 
 function Home() {
@@ -9,6 +10,7 @@ function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [card, setCard] = useState(true);
   const [email, setEmail] = useState(false);
+  const [send, setSend] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,10 +19,21 @@ function Home() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  const entrada = () =>{
+    setCard(true);
+    setSend(false);
+    setMenuOpen(!menuOpen);
+  }
 
   const sendEmail = () => {
     setEmail(true);
   };
+
+  const enviar = () =>{
+    setCard(false);
+    setSend(true);
+    setMenuOpen(!menuOpen);
+  }
 
   const redirect = () => {
     setTimeout(() => {
@@ -58,12 +71,40 @@ function Home() {
             padding: 0,
           }}
         >
-          <li
+
+<li
             style={{
               borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
 
               transition: 'border-color 0.5s ease',
               marginTop: '4em',
+              fontSize: '20px',
+              marginLeft: '10px',
+              marginBottom: '10px',
+              cursor: 'pointer'
+            }}
+
+          >
+            <span
+              class="material-symbols-outlined"
+            >
+              inbox
+            </span>
+
+            <a
+              style={{
+                marginTop: '-5px'
+              }}
+              onClick={() => entrada()}>
+              Caixa de Entrada
+            </a>
+          </li>
+          <li
+            style={{
+              borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
+
+              transition: 'border-color 0.5s ease',
+              marginTop: '2px',
               fontSize: '20px',
               marginLeft: '10px',
               marginBottom: '10px',
@@ -80,10 +121,12 @@ function Home() {
             <a
               style={{
                 marginTop: '-5px'
-              }}>
+              }}
+              onClick={() => enviar()}>
               Enviados
             </a>
           </li>
+         
 
         </ul>
       </div>
@@ -177,7 +220,13 @@ function Home() {
 
       <div style={{ paddingTop: '70px' }}>
         {/* Adicionando um espaço de preenchimento para evitar que os emails fiquem atrás da barra de navegação */}
-        {card && <Card userName={userName} />}
+        {card && 
+        <Card userName={userName} 
+        />}
+
+        {send &&
+        <Enviados userName={userName}/>
+        }
 
         {email && (
           <div
