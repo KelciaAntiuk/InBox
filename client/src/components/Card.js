@@ -38,6 +38,9 @@ function TaskCard({ userName }) {
   const handleEmailClick = (email) => {
     setSelectedEmail(email);
   };
+  const close = () =>{
+    setSelectedEmail();
+  }
 
   return (
     <div style={{ marginTop: '10px' }}>
@@ -61,7 +64,7 @@ function TaskCard({ userName }) {
               transition: 'transform 0.2s',
               minWidth: '250px',
             }}
-            onClick={() => handleEmailClick(email)} // Passando o email específico para a função de clique
+            onClick={() => handleEmailClick(email)}
             onMouseOver={e => {
               e.currentTarget.style.transform = 'scale(1.01)';
               e.currentTarget.style.border = '1px solid grey';
@@ -72,7 +75,12 @@ function TaskCard({ userName }) {
               e.currentTarget.style.border = '1px solid #e0e0e0';
             }}
           >
-            <div style={{ fontSize: '19px', minWidth: '150px' }}>
+            <div
+              style={{
+                fontSize: '19px',
+                minWidth: '150px'
+              }}
+            >
               {user
                 .filter(user => user.id === email.user)
                 .map(user => (
@@ -103,7 +111,12 @@ function TaskCard({ userName }) {
             </div>
           </div>
         ))}
-      {selectedEmail && <VerMais email={selectedEmail} />} 
+      {selectedEmail &&
+        <VerMais
+          email={selectedEmail}
+          onClose={() => close()}
+        />
+      }
     </div>
   );
 }

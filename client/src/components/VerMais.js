@@ -5,9 +5,6 @@ function VerMais({ email, onClose }) {
   const [editedAssunto, setEditedAssunto] = useState(email.assunto);
   const [editedBody, setEditedBody] = useState(email.body);
 
-
-
-
   const deleteEmail = async (id) => {
     try {
       await fetch(`http://localhost:3333/email/${id}`, {
@@ -16,46 +13,14 @@ function VerMais({ email, onClose }) {
 
       onClose();
     } catch (error) {
-      console.error('Error deleting task:', error);
+      console.error('Error deleting email:', error);
     }
   };
 
-  const updateEmail = async () => {
-    try {
-      await fetch(`http://localhost:3333/email/${email.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...email}),
-      });
-      onClose();
-    } catch (error) {
-      console.error('Error updating task:', error);
-    }
-  };
+ 
+ 
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
 
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-    setEditedAssunto(email.assunto);
-    setEditedBody(email.body);
-  };
-
-  const handleSaveEdit = async () => {
-    try {
-      await fetch(`http://localhost:3333/email/${email.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...email, assunto: editedAssunto, body: editedBody }),
-      });
-
-      setIsEditing(false);
-    } catch (error) {
-      console.error('Error updating task:', error);
-    }
-  };
 
   return (
     <div
@@ -72,179 +37,120 @@ function VerMais({ email, onClose }) {
         justifyContent: 'center',
         alignItems: 'center',
       }}
-      onClick={onClose}
+      
     >
       <div
         className="modal"
         style={{
-          backgroundColor: '#ffffff',
+          backgroundColor: '#fff',
           borderRadius: '8px',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+          boxShadow: '0 1px 3px rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15)',
           padding: '20px',
           width: '50%',
+          maxWidth: '800px',
         }}
         onClick={(e) => e.stopPropagation()}
       >
         <div style={{ 
           textAlign: 'right', 
-          marginBottom: '10px'
-           }}
-           >
-          <span
-            className="close"
-            onClick={onClose}
-            style={{ 
-              cursor: 'pointer', 
-              fontSize: '24px' 
-            }}
+          marginBottom: '10px',
+          fontSize: '24px',
+          cursor: 'pointer' 
+          }}
+          onClick={onClose}
           >
-            &times;
-          </span>
+          &times;
         </div>
         <h2
           style={{
-            textAlign: 'center',
+            textAlign: 'left',
             marginBottom: '20px',
             fontFamily: 'Arial, sans-serif',
-            color: '#333'
+            color: '#202124',
+            fontSize: '24px',
           }}
         >
-          Email
+          {isEditing ? (
+            <input
+              type="text"
+              value={editedAssunto}
+              onChange={(e) => setEditedAssunto(e.target.value)}
+              style={{
+                width: '100%',
+                fontSize: '24px',
+                border: 'none',
+                outline: 'none',
+                borderBottom: '2px solid #1a73e8',
+                paddingBottom: '8px',
+                marginBottom: '10px',
+              }}
+            />
+          ) : (
+            email.assunto
+          )}
         </h2>
-        {isEditing ? (
-          <form>
-            <div 
-            style={{ 
-              marginBottom: '10px' 
-              }}
-              >
-              <label>Title:</label>
-              <input
-                type="text"
-                value={editedAssunto}
-                onChange={(e) => setEditedAssunto(e.target.value)}
-                style={{ 
-                  width: '100%', 
-                  marginTop: '5px' 
-                  }} 
-                  />
-            </div>
-            <div 
-            style={{ 
-              marginBottom: '10px' 
-              }}
-              >
-              <label>Description:</label>
-              <textarea
-                value={editedBody}
-                onChange={(e) => setEditedBody(e.target.value)}
-                style={{ 
-                  width: '100%', 
-                  marginTop: '5px'
-                   }} 
-                   />
-            </div>
-            <div
-             style={{ 
-              textAlign: 'center' 
-              }}
-              >
-              <button
-                onClick={handleSaveEdit}
-                style={{
-                  marginRight: '10px'
-                }}
-              >
-                Save
-              </button>
-              <button
-                onClick={handleCancelEdit}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        ) : (
-          <>
-            <p
+        <p
+          style={{
+            textAlign: 'left',
+            margin: '10px 0',
+            fontFamily: 'Arial, sans-serif',
+            color: '#5f6368',
+            whiteSpace: 'pre-wrap',
+            fontSize: '16px',
+            lineHeight: '1.6',
+          }}
+        >
+          {isEditing ? (
+            <textarea
+              value={editedBody}
+              onChange={(e) => setEditedBody(e.target.value)}
               style={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-                margin: '10px 0',
-                fontFamily: 'Arial, sans-serif',
-                color: '#555'
+                width: '100%',
+                minHeight: '200px',
+                fontSize: '16px',
+                border: '2px solid #1a73e8',
+                padding: '8px',
+                marginBottom: '20px',
               }}
-            >
-              {email.assunto}
-            </p>
-            <p
-              style={{
-                textAlign: 'center',
-                margin: '10px 0',
-                fontFamily: 'Arial, sans-serif',
-                color: '#555'
-              }}
-            >
-              Descrição: {email.body}
-            </p>
-            <hr />
-           
-            
-
-            <div
-              style={{
-                textAlign: 'center',
-                marginTop: '20px'
-              }}
-            >
+            />
+          ) : (
+            email.body
+          )}
+        </p>
+        <div
+          style={{
+            textAlign: 'right',
+            marginTop: '20px'
+          }}
+        >
+          {isEditing ? (
+            <>
+             
+            </>
+          ) : (
+            <>
+             
+              
               <button
-                onClick={updateEmail}
-                style={{
-                  marginRight: '10px',
-                  fontFamily: 'Arial, sans-serif',
-                  backgroundColor: '#f44336',
-                  color: 'white',
-                  padding: '10px 20px',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer'
-                }}
-              >
-                Fechar
-              </button>
-              <button
-                onClick={handleEditClick}
-                style={{
-                  marginRight: '10px',
-                  fontFamily: 'Arial, sans-serif',
-                  backgroundColor: '#4CAF50',
-                  color: 'white',
-                  padding: '10px 20px',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer'
-                }}
-              >
-                Editar
-              </button>
-            </div>
-            <div>
-              <p
-                style={{
-                  marginRight: '65em',
-                  marginTop: '-1.2em',
-                  fontFamily: 'Material Symbols Outlined',
-                  fontSize: '30px',
-                  cursor: 'pointer'
-
-                }}
                 onClick={() => deleteEmail(email.id)}
+                style={{
+                  marginLeft: '10px',
+                  padding: '8px 16px',
+                  backgroundColor: '#db4437',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                }}
               >
-                delete
-              </p>
-            </div>
-          </>
-        )}
+                Excluir
+              </button>
+             
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ function Home() {
       style={{
         backgroundColor: 'rgba(111, 205, 163, 0.4)',
         minHeight: '100vh',
-        position: 'relative', // Adicionando posição relativa para garantir o empilhamento correto dos componentes
+        position: 'relative', 
       }}
     >
       <div
@@ -49,10 +49,9 @@ function Home() {
           color: '#fff',
           transition: 'transform 0.3s ease-in-out',
           transform: menuOpen ? 'translateX(0)' : 'translateX(-100%)',
-          zIndex: 999, // Definindo um z-index alto para garantir que o menu esteja por cima de outros elementos
+          zIndex: 999, 
         }}
       >
-        {/* Conteúdo do menu */}
         <ul
           style={{
             listStyle: 'none',
@@ -62,25 +61,40 @@ function Home() {
           <li
             style={{
               borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
-              transition: 'border-color 0.3s ease',
+
+              transition: 'border-color 0.5s ease',
+              marginTop: '4em',
+              fontSize: '20px',
+              marginLeft: '10px',
+              marginBottom: '10px',
+              cursor: 'pointer'
             }}
-          ></li>
-          <li
-            style={{
-              borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
-              transition: 'border-color 0.3s ease',
-            }}
-          ></li>
+
+          >
+            <span
+              class="material-symbols-outlined"
+            >
+              send
+            </span>
+
+            <a
+              style={{
+                marginTop: '-5px'
+              }}>
+              Enviados
+            </a>
+          </li>
+
         </ul>
       </div>
 
       <div
         style={{
-          position: 'fixed', // Fixando a barra de navegação no topo
+          position: 'fixed', 
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 999, // Definindo um z-index alto para garantir que a barra de navegação esteja por cima de outros elementos
+          zIndex: 999, 
         }}
       >
         <div
@@ -125,7 +139,8 @@ function Home() {
               marginLeft: 'auto',
               marginRight: '20px',
             }}
-          ></div>
+          >
+          </div>
 
           <div
             className="perfil"
@@ -163,7 +178,7 @@ function Home() {
       <div style={{ paddingTop: '70px' }}>
         {/* Adicionando um espaço de preenchimento para evitar que os emails fiquem atrás da barra de navegação */}
         {card && <Card userName={userName} />}
-       
+
         {email && (
           <div
             style={{
@@ -228,6 +243,11 @@ function Home() {
       </div>
     </div>
   );
+
 }
 
+
+
+
 export default Home;
+
