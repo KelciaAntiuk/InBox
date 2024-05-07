@@ -4,6 +4,8 @@ function VerMais({ email, onClose }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedAssunto, setEditedAssunto] = useState(email.assunto);
   const [editedBody, setEditedBody] = useState(email.body);
+  const [id, setId] = useState(email.id);
+  
 
   const deleteEmail = async (id) => {
     try {
@@ -16,11 +18,6 @@ function VerMais({ email, onClose }) {
       console.error('Error deleting email:', error);
     }
   };
-
- 
- 
-
-
 
   return (
     <div
@@ -36,8 +33,7 @@ function VerMais({ email, onClose }) {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-      }}
-      
+      }}  
     >
       <div
         className="modal"
@@ -132,7 +128,7 @@ function VerMais({ email, onClose }) {
              
               
               <button
-                onClick={() => deleteEmail(email.id)}
+                onClick={() => deleteEmail(id)}
                 style={{
                   marginLeft: '10px',
                   padding: '8px 16px',

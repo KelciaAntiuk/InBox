@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Card from './components/Card';
 import CardEmail from './components/CardEmail';
 import Enviados from './components/Enviados';
-import VerMais from './components/VerMais';
 
 function Home() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -11,7 +10,6 @@ function Home() {
   const [card, setCard] = useState(true);
   const [email, setEmail] = useState(false);
   const [send, setSend] = useState(false);
-
   const navigate = useNavigate();
   const location = useLocation();
   const userName = location.state && location.state.userName;
@@ -102,7 +100,6 @@ function Home() {
           <li
             style={{
               borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
-
               transition: 'border-color 0.5s ease',
               marginTop: '2px',
               fontSize: '20px',
