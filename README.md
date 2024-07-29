@@ -1,3 +1,4 @@
+Envio simples de Emails
 
 Objetivo:
 Desenvolver um sistema simples e eficiente para o envio de emails básicos, utilizando React Hooks para o frontend, Docker para containerização, PostgreSQL para banco de dados e uma API para o backend.
